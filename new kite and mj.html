@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#341047">
+<title>Kite And Manja Store</title>
+<style>
+:root{--p:#35104b;--p2:#6b2d78;--gold:#d4a72c;--bg:#f7efe3;--green:#16c96b;--text:#241c28;--muted:#777}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}
+.top{position:sticky;top:0;z-index:20;background:#fff;box-shadow:0 2px 12px #0001}
+.head{display:flex;align-items:center;gap:12px;padding:14px 18px}.logo{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#1d0928,#7b3c7e);display:grid;place-items:center;color:#ffd95a;font-weight:900;border:3px solid #d9b84d}
+.brand{min-width:0}.brand h1{font-family:Georgia,serif;font-size:24px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand p{margin:4px 0 0;color:#777;font-size:12px;letter-spacing:1px}
+.headbtn{margin-left:auto;display:flex;gap:8px}.icon{width:52px;height:52px;border-radius:16px;background:#fff;border:1px solid #ddd;color:var(--p);font-weight:800}.badge{position:relative}.badge:after{content:attr(data-count);position:absolute;right:-3px;top:-4px;background:#d8264f;color:#fff;width:22px;height:22px;border-radius:50%;font-size:12px;display:grid;place-items:center}
+.wrap{max-width:1100px;margin:auto;padding:20px}
+.search{width:100%;padding:18px 20px;border-radius:24px;border:1px solid #ddd;background:#fff;font-size:18px;outline:none;box-shadow:0 5px 18px #0000000a}
+.hero{margin-top:18px;border-radius:30px;background:linear-gradient(120deg,#35104b,#8b4b86);color:#fff;padding:34px 26px;min-height:190px;display:flex;align-items:center;justify-content:space-between;overflow:hidden}.hero h2{font:700 38px Georgia;margin:0 0 10px}.hero p{margin:0 0 18px;opacity:.9}.hero button{padding:13px 20px;border-radius:14px;background:#fff;color:var(--p);font-weight:800}.kite{font-size:110px;transform:rotate(15deg);opacity:.9}
+.sectiontitle{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px}.sectiontitle h2{font:32px Georgia;margin:0}.sectiontitle button{background:none;color:var(--p);font-weight:800}
+.cats{display:flex;gap:12px;overflow:auto;padding-bottom:5px}.cat{min-width:120px;background:#fff;border:1px solid #e6d8c6;border-radius:20px;padding:12px;text-align:center}.cat .pic{height:76px;border-radius:50%;display:grid;place-items:center;background:#eee5f0;font-size:40px;margin:auto}.cat b{display:block;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:#fff;border-radius:24px;overflow:hidden;border:1px solid #eadfd4;box-shadow:0 5px 18px #0000000a}.photo{height:210px;background:#eee;display:grid;place-items:center;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover}.placeholder{font-size:70px}.cardbody{padding:14px}.tag{display:inline-block;background:#c52b55;color:#fff;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:800}.card h3{margin:10px 0 6px;font-size:18px}.desc{color:#777;font-size:13px;min-height:32px}.price{font-size:23px;font-weight:900;margin:12px 0}.old{text-decoration:line-through;color:#999;font-size:14px;font-weight:500;margin-left:6px}.actions{display:flex;gap:8px}.cartbtn,.buybtn{flex:1;padding:12px;border-radius:13px;font-weight:800}.cartbtn{background:var(--p);color:#fff}.buybtn{background:var(--green);color:#fff}
+.bottom{position:sticky;bottom:0;background:#fff;border-top:1px solid #ddd;display:flex;justify-around:space-around;padding:10px 4px;z-index:18}.bottom button{background:none;color:#666;font-weight:700}.bottom .active{color:var(--p)}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:50}.panel{position:absolute;right:0;top:0;height:100%;width:min(560px,100%);background:#fff;overflow:auto;padding:22px}.overlay.open{display:block}.close{float:right;background:none;font-size:30px}.panel h2{font:30px Georgia}.row{display:flex;gap:10px}.field{margin:12px 0}.field label{display:block;font-weight:800;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px}.full{width:100%;padding:14px;border-radius:14px;background:var(--p);color:#fff;font-weight:800}.danger{background:#b4233e}.productrow{border:1px solid #ddd;border-radius:14px;padding:12px;margin:10px 0}.adminlink{display:inline-block;margin:20px 0;color:var(--p);font-weight:800}
+.total{font-size:20px;font-weight:900;text-align:right;margin:18px 0}.paybox{background:#fffaf0;border:1px solid #e2d08c;border-radius:18px;padding:16px;margin:14px 0}.qr{max-width:220px;max-height:220px;display:block;margin:10px auto;border-radius:10px}.notice{background:#f4edf7;padding:12px;border-radius:12px;font-size:13px;color:#543b5f}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.photo{height:190px}.hero h2{font-size:30px}.kite{font-size:80px}}
+@media(max-width:480px){.wrap{padding:14px}.brand h1{font-size:20px}.grid{gap:10px}.card{border-radius:18px}.photo{height:160px}.cardbody{padding:11px}.card h3{font-size:16px}.price{font-size:19px}.actions{flex-direction:column}.hero{min-height:170px}.kite{font-size:65px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="head">
+  <div class="logo">KM</div><div class="brand"><h1>KITE AND MANJA STORE</h1><p>CRAFTING • STYLE • QUALITY</p></div>
+  <div class="headbtn"><button class="icon badge" id="cartHead" data-count="0" onclick="openCart()">🛍️</button></div>
+</div></div>
+
+<main class="wrap">
+<input id="search" class="search" placeholder="Search products..." oninput="renderProducts()">
+<section class="hero"><div><h2>New Collection</h2><p>Shop quality products with easy online checkout.</p><button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button></div><div class="kite">👕</div></section>
+
+<div class="sectiontitle"><h2>Shop by Category</h2><button onclick="setCat('All')">View All</button></div>
+<div class="cats">
+  <button class="cat" onclick="setCat('T-Shirts')"><div class="pic">👕</div><b>T-Shirts</b></button>
+  <button class="cat" onclick="setCat('Shirts')"><div class="pic">👔</div><b>Shirts</b></button>
+  <button class="cat" onclick="setCat('Jeans')"><div class="pic">👖</div><b>Jeans</b></button>
+  <button class="cat" onclick="setCat('Hoodies')"><div class="pic">🧥</div><b>Hoodies</b></button>
+</div>
+
+<div class="sectiontitle" id="products"><h2>Featured Products</h2><button onclick="setCat('All')">View All</button></div>
+<div id="grid" class="grid"></div>
+
+<a class="adminlink" href="#" onclick="openAdmin();return false">⚙️️ Owner / Admin</a>
+</main>
+
+<div class="bottom"><button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})">⌂<br>Home</button><button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">▦<br>Products</button><button onclick="openCart()">🛍<br>Orders</button><button onclick="openAdmin()">⚙️<br>Admin</button></div>
+
+<div id="overlay" class="overlay"><div class="panel" id="panel"></div></div>
+
+<script>
+const API_URL = "https://api.jsonbin.io/v3/b/6abf5427ffd5d16053451a94";
+const API_KEY = "$2a$10$e0Zz0SsbeJ2m24v4KKPV9.1Pbu5sFtz04fHWiusMy.QIv6xryPLHe";
+
+const defaults = [
+  {id:1,name:'Premium Cotton T-Shirt',cat:'T-Shirts',desc:'Soft everyday cotton T-shirt',price:499,old:699,img:'',tag:'Best Seller'},
+  {id:2,name:'Classic Casual Shirt',cat:'Shirts',desc:'Comfort-fit casual shirt',price:799,old:999,img:'',tag:'New'},
+  {id:3,name:'Regular Fit Jeans',cat:'Jeans',desc:'Comfortable everyday denim',price:999,old:1299,img:'',tag:'Best Seller'},
+  {id:4,name:'Classic Hoodie',cat:'Hoodies',desc:'Warm and comfortable hoodie',price:899,old:1199,img:'',tag:'New'}
+];
+
+let storeData = JSON.parse(localStorage.getItem('km_store_cache') || 'null') || {
+  products: defaults,
+  settings: { upi: '', qr: '', ownerPin: '1234', whatsapp: '' },
+  orders: []
+};
+
+let cart = JSON.parse(localStorage.getItem('km_cart_v1') || '[]'), cat = 'All';
+
+function saveLocal() {
+  localStorage.setItem('km_store_cache', JSON.stringify(storeData));
+}
+
+async function fetchCloudData() {
+  try {
+    let res = await fetch(API_URL + "/latest?cacheBust=" + Date.now(), { 
+      headers: { "X-Master-Key": API_KEY, "X-Bin-Meta": "false" } 
+    });
+    if (res.ok) {
+      let data = await res.json();
+      if (data && data.products) {
+        storeData = data;
+        saveLocal();
+      }
+    }
+  } catch (e) {
+    console.log("Cloud load failed");
+  }
+  renderProducts();
+}
+
+async function saveCloudData() {
+  saveLocal();
+  try {
+    toast("Syncing live store...");
+    let res = await fetch(API_URL, {
+      method: "PUT",
+      headers: { 
+        "Content-Type": "application/json", 
+        "X-Master-Key": API_KEY 
+      },
+      body: JSON.stringify(storeData)
+    });
+    if(res.ok) {
+      toast("Live updated!");
+    } else {
+      toast("Saved locally!");
+    }
+  } catch (e) {
+    toast("Saved locally!");
+  }
+}
+
+function compressImage(file, callback) {
+  let reader = new FileReader();
+  reader.onload = function(e) {
+    let img = new Image();
+    img.onload = function() {
+      let canvas = document.createElement('canvas');
+      let ctx = canvas.getContext('2d');
+      let maxDim = 400;
+      let width = img.width, height = img.height;
+      if (width > height) {
+        if (width > maxDim) { height *= maxDim / width; width = maxDim; }
+      } else {
+        if (height > maxDim) { width *= maxDim / height; height = maxDim; }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      callback(canvas.toDataURL('image/jpeg', 0.6));
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveCart() { localStorage.setItem('km_cart_v1', JSON.stringify(cart)); }
+function money(n) { return '₹' + Number(n).toLocaleString('en-IN') + '.00'; }
+function setCat(c) { cat = c; renderProducts(); document.getElementById('products').scrollIntoView({ behavior: 'smooth' }); }
+
+function renderProducts() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const list = storeData.products.filter(p => (cat === 'All' || p.cat === cat) && ((p.name + ' ' + (p.desc || '') + ' ' + p.cat).toLowerCase().includes(q)));
+  document.getElementById('grid').innerHTML = list.length ? list.map(p => `<article class="card">
+  <div class="photo">${p.img ? `<img src="${p.img}" alt="">` : `<div class="placeholder">${p.cat === 'Jeans' ? '👖' : p.cat === 'Shirts' ? '👔' : p.cat === 'Hoodies' ? '🧥' : '👕'}</div>`}</div>
+  <div class="cardbody">${p.tag ? `<span class="tag">${p.tag}</span>` : ''}<h3>${esc(p.name)}</h3><div class="desc">${esc(p.desc || '')}</div><div class="price">${money(p.price)} ${p.old ? `<span class="old">${money(p.old)}</span>` : ''}</div>
+  <div class="actions"><button class="cartbtn" onclick="add(${p.id})">🛍 Add to Cart</button><button class="buybtn" onclick="buyNow(${p.id})">Buy Now</button></div></div></article>`).join('') : '<p>No products found.</p>';
+  updateBadge();
+}
+
+function esc(s) { return String(s || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+function add(id) { let x = cart.find(a => a.id === id); x ? x.qty++ : cart.push({ id, qty: 1 }); saveCart(); updateBadge(); toast('Added to cart'); }
+function buyNow(id) { cart = [{ id, qty: 1 }]; saveCart(); checkout(); }
+function updateBadge() { document.getElementById('cartHead').setAttribute('data-count', cart.reduce((a, b) => a + b.qty, 0)); }
+
+function openCart() {
+  openPanel(`<button class="close" onclick="closePanel()">×</button><h2>My Cart</h2><div id="cartbox"></div>`);
+  renderCart();
+}
+
+function renderCart() {
+  let box = document.getElementById('cartbox'); if (!box) return;
+  if (!cart.length) { box.innerHTML = '<p>Your cart is empty.</p>'; return; }
+  let subtotal = cart.reduce((s, x) => s + (storeData.products.find(p => p.id === x.id)?.price || 0) * x.qty, 0);
+  box.innerHTML = cart.map(x => { let p = storeData.products.find(p => p.id === x.id); if(!p) return ''; return `<div class="productrow"><b>${esc(p.name)}</b><div>${money(p.price)} × <button onclick="chg(${x.id},-1)">−</button> ${x.qty} <button onclick="chg(${x.id},1)">+</button></div></div>`; }).join('') +
+  `<div class="total">Total: ${money(subtotal)}</div><button class="full" onclick="checkout()">Proceed to Checkout</button>`;
+}
+
+function chg(id, d) { let x = cart.find(a => a.id === id); if (!x) return; x.qty += d; if (x.qty <= 0) cart = cart.filter(a => a.id !== id); saveCart(); renderCart(); updateBadge(); }
+
+function checkout() {
+  if (!cart.length) return;
+  let settings = storeData.settings;
+  openPanel(`<button class="close" onclick="closePanel()">×</button><h2>Secure Checkout</h2>
+  <div class="notice">Fill details to place your order.</div>
+  <div class="field"><label>Full Name *</label><input id="cname" required placeholder="Enter full name"></div>
+  <div class="field"><label>Mobile Number *</label><input id="cmob" inputmode="numeric" placeholder="10 digit mobile"></div>
+  <div class="field"><label>House / Flat *</label><input id="chouse" placeholder="House / Flat / Building"></div>
+  <div class="field"><label>Full Address *</label><textarea id="caddr" rows="3" placeholder="Road, Area, Landmark"></textarea></div>
+  <div class="row"><div class="field" style="flex:1"><label>City *</label><input id="ccity"></div><div class="field" style="flex:1"><label>PIN *</label><input id="cpin" inputmode="numeric"></div></div>
+  <div class="paybox"><b>Payment Method: Online UPI</b>${settings.qr ? `<img class="qr" src="${settings.qr}">` : ''}<p><b>UPI ID:</b> ${esc(settings.upi || 'N/A')}</p></div>
+  <button class="full" onclick="placeOrder()">Place Order via WhatsApp</button>`);
+}
+
+async function placeOrder() {
+  let name = document.getElementById('cname').value.trim(), mob = document.getElementById('cmob').value.trim(), addr = document.getElementById('chouse').value.trim() + ', ' + document.getElementById('caddr').value.trim(), city = document.getElementById('ccity').value.trim(), pin = document.getElementById('cpin').value.trim();
+  if (!name || !mob || !addr || !city || !pin) { toast('Please fill all required details'); return; }
+  let items = cart.map(x => { let p = storeData.products.find(p => p.id === x.id); return { name: p.name, qty: x.qty, price: p.price, total: p.price * x.qty }; }), total = items.reduce((s, x) => s + x.total, 0);
+  
+  let order = { id: 'KM' + Date.now().toString().slice(-8), date: new Date().toLocaleString('en-IN'), name, mobile: mob, address: addr + ', ' + city + ' - ' + pin, items, total, status: 'New' };
+  
+  storeData.orders.unshift(order);
+  await saveCloudData();
+  
+  let msg = '🛒 *NEW ORDER PLACED*' + '%0A----------------------------' + '%0A*Order ID:* ' + order.id + '%0A*Name:* ' + encodeURIComponent(name) + '%0A*Mobile:* ' + encodeURIComponent(mob) + '%0A*Address:* ' + encodeURIComponent(order.address) + '%0A%0A*Items Ordered:*%0A' + items.map(x => '• ' + encodeURIComponent(x.name) + ' (x' + x.qty + ') - ' + money(x.total)).join('%0A') + '%0A----------------------------' + '%0A*Total Amount:* ' + money(total) + '%0A*Payment Status:* UPI Payment Requested';
+  cart = []; saveCart(); updateBadge();
+  
+  let wpNum = storeData.settings.whatsapp || "919876543210";
+  window.open('https://wa.me/' + wpNum + '?text=' + msg, '_blank');
+  
+  openPanel('<button class="close" onclick="closePanel()">×</button><h2>Order Placed!</h2><p><b>Order ID:</b> ' + order.id + '</p><p>Order details have been sent to WhatsApp!</p><button class="full" onclick="closePanel()">Done</button>');
+}
+
+function openAdmin() {
+  openPanel(`<button class="close" onclick="closePanel()">×</button><h2>Owner Admin</h2>
+  <div class="field"><label>Owner PIN</label><input id="apin" type="password" inputmode="numeric" placeholder="Enter PIN"></div>
+  <button class="full" onclick="adminLogin()">Open Admin</button>
+  <p class="notice">Default PIN: <b>1234</b></p>`);
+}
+
+function adminLogin() {
+  if (document.getElementById('apin').value !== storeData.settings.ownerPin) { toast('Wrong PIN'); return; }
+  adminPanel();
+}
+
+function adminPanel() {
+  let settings = storeData.settings;
+  openPanel(`<button class="close" onclick="closePanel()">×</button><h2>Store Admin Panel</h2>
+  <h3>1. Payment & WhatsApp Settings</h3>
+  <div class="field"><label>UPI ID (For Payments)</label><input id="aupi" value="${esc(settings.upi)}" placeholder="e.g. 9876543210@paytm"></div>
+  <div class="field"><label>WhatsApp Number (With Country Code)</label><input id="awp" value="${esc(settings.whatsapp)}" placeholder="e.g. 919876543210"></div>
+  <div class="field"><label>UPI QR Code Image</label><input id="aqr" type="file" accept="image/*"></div>
+  <button class="full" onclick="saveSettings()">Save Store Settings</button>
+  
+  <br><br>
+  <h3>2. Security PIN</h3>
+  <div class="field"><label>Current PIN</label><input id="oldpin" type="password" inputmode="numeric"></div>
+  <div class="field"><label>New PIN</label><input id="newpin" type="password" inputmode="numeric"></div>
+  <button class="full" onclick="changePin()">Update PIN</button>
+
+  <br><br>
+  <h3>3. Add New Product (Live to All)</h3>
+  <div class="field"><input id="pn" placeholder="Product Name"></div>
+  <div class="row"><input id="pc" placeholder="Category (e.g. T-Shirts)"><input id="pp" type="number" placeholder="Price (₹)"></div>
+  <div class="row"><input id="po" type="number" placeholder="Original Price (₹)"><input id="pt" placeholder="Tag (e.g. Best Seller)"></div>
+  <div class="field"><label>Short Description</label><input id="pd" placeholder="Short Description"></div>
+  <div class="field"><label>Product Image</label><input id="pi" type="file" accept="image/*"></div>
+  <button class="full" onclick="addProductAdmin()">Add & Publish Product</button>
+
+  <br><br>
+  <h3>Current Products</h3><div id="adminProducts"></div>
+  <br>
+  <h3>Customer Orders</h3><div id="ordersAdmin"></div>`);
+  
+  renderAdminProducts();
+  renderOrders();
+}
+
+async function saveSettings() {
+  storeData.settings.upi = document.getElementById('aupi').value.trim();
+  storeData.settings.whatsapp = document.getElementById('awp').value.replace(/\D/g, '');
+  let f = document.getElementById('aqr').files[0];
+  
+  if (f) {
+    compressImage(f, async (compressedData) => {
+      storeData.settings.qr = compressedData;
+      await saveCloudData();
+      adminPanel();
+    });
+  } else {
+    await saveCloudData();
+    adminPanel();
+  }
+}
+
+async function changePin() {
+  const oldp = (document.getElementById('oldpin') || {}).value || '';
+  const newp = (document.getElementById('newpin') || {}).value || '';
+  if (oldp !== storeData.settings.ownerPin) { toast('Current PIN is incorrect'); return; }
+  if (!/^\d{4,12}$/.test(newp)) { toast('New PIN must be 4-12 digits'); return; }
+  
+  storeData.settings.ownerPin = newp;
+  await saveCloudData();
+  alert('PIN changed successfully across all devices!');
+  adminPanel();
+}
+
+async function addProductAdmin() {
+  let n = document.getElementById('pn').value.trim(), c = document.getElementById('pc').value.trim() || 'T-Shirts', pr = Number(document.getElementById('pp').value), old = Number(document.getElementById('po').value) || 0, d = document.getElementById('pd').value.trim(), tag = document.getElementById('pt').value.trim();
+  if (!n || !pr) { toast('Enter product name and price'); return; }
+  
+  let f = document.getElementById('pi').files[0];
+  let p = { id: Date.now(), name: n, cat: c, desc: d, price: pr, old: old, img: '', tag: tag };
+  
+  if (f) {
+    compressImage(f, async (compressedData) => {
+      p.img = compressedData;
+      storeData.products.push(p);
+      await saveCloudData();
+      renderProducts();
+      adminPanel();
+    });
+  } else {
+    storeData.products.push(p);
+    await saveCloudData();
+    renderProducts();
+    adminPanel();
+  }
+}
+
+function renderAdminProducts() {
+  let el = document.getElementById('adminProducts'); if (!el) return;
+  el.innerHTML = storeData.products.map(p => `<div class="productrow"><b>${esc(p.name)}</b> - ${money(p.price)} <button onclick="delProduct(${p.id})">Delete</button></div>`).join('');
+}
+
+async function delProduct(id) {
+  if (confirm('Delete product?')) { storeData.products = storeData.products.filter(p => p.id !== id); await saveCloudData(); renderProducts(); adminPanel(); }
+}
+
+function renderOrders() {
+  let el = document.getElementById('ordersAdmin'); if (!el) return;
+  if (!storeData.orders.length) { el.innerHTML = '<p style="color:#777">No orders yet.</p>'; return; }
+  el.innerHTML = storeData.orders.map(o => '<div class="productrow"><b>' + esc(o.id) + '</b><br><b>Customer:</b> ' + esc(o.name) + '<br><b>Mobile:</b> ' + esc(o.mobile) + '<br><b>Address:</b> ' + esc(o.address) + '<br><b>Total: ' + money(o.total) + '</b><br><button onclick="deleteOrder(\'' + o.id + '\')">Delete Order</button></div>').join('');
+}
+
+async function deleteOrder(id) {
+  if (confirm('Delete order?')) { storeData.orders = storeData.orders.filter(o => o.id !== id); await saveCloudData(); adminPanel(); }
+}
+
+function openPanel(x) { document.getElementById('panel').innerHTML = x; document.getElementById('overlay').classList.add('open'); }
+function closePanel() { document.getElementById('overlay').classList.remove('open'); }
+function toast(t) { let x = document.createElement('div'); x.textContent = t; x.style = 'position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#24112e;color:#fff;padding:12px 18px;border-radius:30px;z-index:100'; document.body.appendChild(x); setTimeout(() => x.remove(), 1800); }
+
+fetchCloudData();
+</script>
+</body>
+</html>
